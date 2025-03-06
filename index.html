@@ -132,4 +132,83 @@
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
       padding: 2rem;
       opacity: 0;
-    
+      animation: revealLetter 1s forwards 0.6s; 
+      /* Start after the flap begins opening (0.6s delay) */
+    }
+    @keyframes revealLetter {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, 40px);
+      }
+      100% {
+        opacity: 1;
+        transform: translate(-50%, 0);
+      }
+    }
+
+    /* LETTER STYLING */
+    .letter h1 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 2.2rem;
+      color: #e74c3c;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .letter p {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: #444;
+    }
+
+    .signature {
+      margin-top: 1.5rem;
+      text-align: right;
+      font-style: italic;
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.6rem;
+      color: #e74c3c;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- FLOATING HEARTS -->
+  <span class="heart" style="left: 10%; animation-delay: 0s;"></span>
+  <span class="heart" style="left: 40%; animation-delay: 2s;"></span>
+  <span class="heart" style="left: 70%; animation-delay: 1s;"></span>
+  <span class="heart" style="left: 20%; animation-delay: 3s;"></span>
+  <span class="heart" style="left: 60%; animation-delay: 0.5s;"></span>
+  <span class="heart" style="left: 85%; animation-delay: 2.5s;"></span>
+  <span class="heart" style="left: 30%; animation-delay: 1.7s;"></span>
+  <span class="heart" style="left: 50%; animation-delay: 4s;"></span>
+
+  <!-- ENVELOPE -->
+  <div class="envelope">
+    <div class="envelope-top"></div>
+    <div class="envelope-bottom"></div>
+
+    <!-- LETTER (emerges after the flap opens) -->
+    <div class="letter">
+      <h1>My Sweet Love Letter</h1>
+      <p>
+        Dear [Recipient],
+        <br /><br />
+        I wanted to share my feelings with you in a special way. 
+        You bring so much joy and warmth into my life, and 
+        I’m constantly amazed by your kindness, humor, and beauty.
+        <br /><br />
+        Every moment I spend with you feels like magic.
+        You mean the world to me, and I hope this small token
+        of affection brightens your day as much as you brighten mine.
+        <br /><br />
+        With all my love,
+      </p>
+      <div class="signature">
+        [Your Name]
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
