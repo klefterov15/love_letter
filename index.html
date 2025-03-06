@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Love Letter Animation</title>
+  <style>
+    /* Basic Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: #f9f9f9;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+
+    .envelope {
+      position: relative;
+      width: 300px;
+      height: 200px;
+      perspective: 1000px; /* Needed for the 3D flip animation */
+    }
+
+    /* Top flap of the envelope */
+    .envelope-top {
+      position: absolute;
+      width: 300px;
+      height: 100px;
+      background: #e74c3c; /* Envelope color (red) */
+      top: 0;
+      transform-origin: bottom;
+      border-radius: 0 0 10px 10px;
+      /* Flip animation */
+      animation: openEnvelope 3s forwards;
+    }
+
+    /* Bottom part of the envelope */
+    .envelope-bottom {
+      position: absolute;
+      bottom: 0;
+      width: 300px;
+      height: 100px;
+      background: #e74c3c; /* Same envelope color */
+      border-radius: 10px 10px 0 0;
+    }
+
+    /* The letter itself */
+    .envelope-letter {
+      position: absolute;
+      top: 80px;
+      left: 0;
+      right: 0;
+      margin: auto;
+      width: 280px;
+      max-height: 180px;
+      background: #fff;
+      padding: 20px;
+      text-align: center;
+      border-radius: 4px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      transform: translateY(60px);
+      opacity: 0;
+      /* Animation to move the letter up once the top flap is open */
+      animation: revealLetter 3s forwards 1s; 
+      /* "1s" delay so it starts after the envelope flap begins */
+    }
+
+    /* Letter text styles */
+    .envelope-letter h1 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+    .envelope-letter p {
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    /* Keyframes for opening the envelope flap */
+    @keyframes openEnvelope {
+      0% {
+        transform: rotateX(0deg);
+      }
+      100% {
+        transform: rotateX(-180deg);
+      }
+    }
+
+    /* Keyframes for revealing the letter */
+    @keyframes revealLetter {
+      0% {
+        opacity: 0;
+        transform: translateY(60px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="envelope">
+    <!-- The top flap -->
+    <div class="envelope-top"></div>
+
+    <!-- The letter content -->
+    <div class="envelope-letter">
+      <h1>My Love Letter</h1>
+      <p>
+        Dear [Recipient],
+        <br><br>
+        [Write your heartfelt message here!]
+        <br><br>
+        Love,
+        <br>
+        [Your Name]
+      </p>
+    </div>
+
+    <!-- The bottom part of the envelope -->
+    <div class="envelope-bottom"></div>
+  </div>
+
+</body>
+</html>
