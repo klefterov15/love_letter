@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Beautiful Love Letter</title>
+  <title>Love Letter with Envelope Animation</title>
 
-  <!-- Google Fonts: fancy + readable mix -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
     href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Merriweather&display=swap"
@@ -19,70 +19,19 @@
       box-sizing: border-box;
     }
 
-    /* Body with a soft gradient background */
+    /* Body: gradient + hearts background */
     body {
-      height: 100vh;
+      min-height: 100vh;
       background: linear-gradient(135deg, #FFDDE1 0%, #FFC4D6 100%);
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden; /* Hide hearts that float out of screen */
-      font-family: 'Merriweather', serif; /* default text font */
+      overflow: hidden; /* Hide hearts floating offscreen */
+      font-family: 'Merriweather', serif;
       position: relative;
     }
 
-    /* Container for the letter */
-    .letter-container {
-      position: relative;
-      width: 90%;
-      max-width: 600px;
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-      padding: 2rem;
-      animation: fadeIn 1.2s ease forwards;
-      opacity: 0; /* We'll fade it in */
-    }
-
-    /* Title uses a fancy script font */
-    .letter-container h1 {
-      font-family: 'Dancing Script', cursive;
-      font-size: 2.2rem;
-      color: #e74c3c; /* a nice red accent */
-      text-align: center;
-      margin-bottom: 1rem;
-    }
-
-    /* Letter text styling */
-    .letter-container p {
-      font-size: 1.1rem;
-      line-height: 1.7;
-      color: #444;
-      text-align: left;
-    }
-
-    /* Signature style at the bottom (optional) */
-    .letter-container .signature {
-      margin-top: 2rem;
-      text-align: right;
-      font-style: italic;
-      font-family: 'Dancing Script', cursive;
-      font-size: 1.6rem;
-      color: #e74c3c;
-    }
-
-    /* Fade-in keyframe for the letter container */
-    @keyframes fadeIn {
-      to {
-        opacity: 1;
-      }
-    }
-
-    /* 
-      Floating Hearts 
-      We’ll create multiple hearts absolutely positioned,
-      each with a different animation delay to float upward 
-    */
+    /* CREATE FLOATING HEARTS */
     .heart {
       position: absolute;
       width: 20px;
@@ -111,7 +60,6 @@
       top: 0;
     }
 
-    /* Keyframes for hearts floating from bottom to top */
     @keyframes floatHearts {
       0% {
         transform: translateY(0) rotate(45deg);
@@ -125,11 +73,105 @@
         opacity: 0;
       }
     }
+
+    /* ENVELOPE WRAPPER (for 3D flap animation) */
+    .envelope {
+      position: relative;
+      width: 350px;  /* Adjust envelope width */
+      height: 220px; /* Adjust envelope height */
+      perspective: 1000px;
+    }
+
+    /* Envelope Top Flap */
+    .envelope-top {
+      position: absolute;
+      width: 350px;
+      height: 110px;  /* half of 220px */
+      background: #e91e63; /* Pink-ish envelope color */
+      top: 0;
+      transform-origin: bottom;
+      border-radius: 0 0 10px 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      animation: openEnvelope 2s forwards;
+      z-index: 2;
+    }
+    @keyframes openEnvelope {
+      0% {
+        transform: rotateX(0deg);
+      }
+      100% {
+        transform: rotateX(-180deg);
+      }
+    }
+
+    /* Envelope Bottom Part */
+    .envelope-bottom {
+      position: absolute;
+      bottom: 0;
+      width: 350px;
+      height: 110px;
+      background: #e91e63;
+      border-radius: 10px 10px 0 0;
+      box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+    }
+
+    /* The Letter Itself (the sheet) */
+    .envelope-letter {
+      position: absolute;
+      top: 85px;     /* Just below the top flap */
+      left: 0;
+      right: 0;
+      margin: auto;
+      width: 320px;  /* slightly narrower than envelope */
+      max-height: 200px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      padding: 2rem;
+      transform: translateY(40px);
+      opacity: 0;
+      animation: revealLetter 1.5s forwards 0.8s; 
+      /* Start after the flap begins opening (0.8s delay) */
+    }
+
+    @keyframes revealLetter {
+      0% {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* LETTER TEXT STYLING (fancy + readable) */
+    .envelope-letter h1 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 2.2rem;
+      color: #e74c3c;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    .envelope-letter p {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: #444;
+    }
+    .signature {
+      margin-top: 1.5rem;
+      text-align: right;
+      font-style: italic;
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.6rem;
+      color: #e74c3c;
+    }
   </style>
 </head>
 <body>
 
-  <!-- Multiple hearts with different left positions & delays -->
+  <!-- Multiple hearts floating with different delays -->
   <span class="heart" style="left: 10%; animation-delay: 0s;"></span>
   <span class="heart" style="left: 40%; animation-delay: 2s;"></span>
   <span class="heart" style="left: 70%; animation-delay: 1s;"></span>
@@ -139,24 +181,30 @@
   <span class="heart" style="left: 30%; animation-delay: 1.7s;"></span>
   <span class="heart" style="left: 50%; animation-delay: 4s;"></span>
 
-  <!-- The letter itself -->
-  <div class="letter-container">
-    <h1>My Sweet Love Letter</h1>
-    <p>
-      Dear [Recipient],
-      <br /><br />
-      I wanted to share my feelings with you in a special way. 
-      You bring so much joy and warmth into my life, and 
-      I’m constantly amazed by your kindness, humor, and beauty.
-      <br /><br />
-      Every moment I spend with you feels like magic.
-      You mean the world to me, and I hope this small token
-      of affection brightens your day as much as you brighten mine.
-      <br /><br />
-      With all my love,
-    </p>
-    <div class="signature">
-      [Your Name]
+  <!-- Envelope Container -->
+  <div class="envelope">
+    <div class="envelope-top"></div>
+    <div class="envelope-bottom"></div>
+
+    <!-- The letter content inside -->
+    <div class="envelope-letter">
+      <h1>My Sweet Love Letter</h1>
+      <p>
+        Dear [Recipient],
+        <br /><br />
+        I wanted to share my feelings with you in a special way. 
+        You bring so much joy and warmth into my life, and 
+        I’m constantly amazed by your kindness, humor, and beauty.
+        <br /><br />
+        Every moment I spend with you feels like magic.
+        You mean the world to me, and I hope this small token
+        of affection brightens your day as much as you brighten mine.
+        <br /><br />
+        With all my love,
+      </p>
+      <div class="signature">
+        [Your Name]
+      </div>
     </div>
   </div>
 
